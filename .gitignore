@@ -1,0 +1,10 @@
+﻿bin/
+obj/
+*.user
+*.suo
+*.swp
+*.tmp
+.vs/
+*.vscode/
+*.db
+logs/

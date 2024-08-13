@@ -30,32 +30,53 @@ Configure your settings in `appsettings.json`:
 
 ```json
 {
-  "Serilog": {
-    "MinimumLevel": "Information",
-    "WriteTo": [
-      { "Name": "Console" },
-      { "Name": "File", "Args": { "path": "logs/log.txt", "rollingInterval": "Day" } }
-    ]
-  },
-  "RabbitMQ": {
-    "HostName": "localhost",
-    "UserName": "guest",
-    "Password": "guest",
-    "RequestQueueName": "file_operations_request_queue",
-    "ResponseQueueName": "file_operations_response_queue"
+  "StorageProvider": "Azure", // Change this to "AWS" to switch to AWS or "Azure" to switch to Azure
+  "Azure": {
+    "BlobStorageConnectionString": "your-azure-connection-string",
+    "ContainerName": "your-azure-container-name"
   },
   "AWS": {
-    "Region": "us-east-1",
-    "AccessKey": "your-access-key",
-    "SecretKey": "your-secret-key",
-    "BucketName": "your-bucket-name"
+    "AccessKey": "your-aws-access-key",
+    "SecretKey": "your-aws-secret-key",
+    "BucketName": "your-aws-bucket-name",
+    "Region": "your-Region"
   },
-  "Azure": {
-    "BlobStorageConnectionString": "your-connection-string",
-    "ContainerName": "your-container-name"
+  "RabbitMQ": {
+    "HostName": "your-HostName",
+    "UserName": "your-UserName",
+    "Password": "your-Password",
+    "RequestQueueName": "Storage_Request_Queue",
+    "ResponseQueueName": "Storage_Response_Queue"
   },
-  "StorageProvider": "AWS"
+  "Serilog": {
+    "MinimumLevel": {
+      "Default": "Information",
+      "Override": {
+        "Microsoft": "Warning",
+        "System": "Warning"
+      }
+    },
+    "WriteTo": [
+      { "Name": "Console" },
+      {
+        "Name": "File",
+        "Args": {
+          "path": "logs/log.txt",
+          "rollingInterval": "Day"
+        }
+      }
+    ]
+  },
+
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
 }
+
 ```
 
 Replace placeholders with your actual configuration values.
